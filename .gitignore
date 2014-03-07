@@ -1,6 +1,6 @@
 .*.swp
-.aux
-.toc
-.log
-.pdf
-.dvi
+*.aux
+*.toc
+*.log
+*.pdf
+*.dvi

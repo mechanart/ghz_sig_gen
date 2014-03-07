@@ -9,6 +9,6 @@ by the full 32-bit parallel bus both phase and amplitude can be modulated at
 the AD9914's maximum rate of 145 MSPS if the 3.5GHz clock option is used.
 
 The physical layout of the GSG adheres to the
-[MECB-A][github.com/mechanart/mechanart/mecb] specification which in
+[MECB-A](https://github.com/mechanart/mechanart/mecb) specification which in
 turn is based on a Eurocard standard size of 100mm by 160mm. It is used as the
-LO in the [Mar de Lo Radio][github.com/mechanart/mar-de-lo-radio/].
+LO in the [Mar de Lo Radio](https://github.com/mechanart/mar-de-lo-radio).
