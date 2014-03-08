@@ -6,7 +6,7 @@ Devices AD9914 DDS IC.
 
 The GSG is capable of being controlled via serial or parallel links. When driven
 by the full 32-bit parallel bus both phase and amplitude can be modulated at
-the AD9914's maximum rate of 145 MSPS if the 3.5GHz clock option is used.
+the AD9914's maximum rate of 145 MSPS when used with the optional OCXO.
 
 The physical layout of the GSG adheres to the
 [MECB-A](https://github.com/mechanart/mechanart/mecb) specification which in
@@ -21,3 +21,5 @@ The goals of the project are as follows:
   - display
   - control panel
   - onboard microprocessor
+
+The GSG is a laboratory grade modular function generator.
