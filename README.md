@@ -24,7 +24,8 @@ The goals of the project are as follows:
 * Lowest noise possible
 * Flexible control 
 * Modular architecture
-  - compatible sizing with Project Ara (1x2 module ~= 18x38mm PCB)
+  - Voltage regulators are connectorized
+  - Serial and Parallel programming interfaces exposed
 * Optional stand-alone capability
   - display
   - control panel
