@@ -1,0 +1,46 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage{amsmath}
+\title{AD9914 Initialization and Configuration\\ \vspace{2 mm} {\large version 0.1}}
+\author{Logan Cummings}
+\begin{document}
+\maketitle
+\renewcommand*\footnoterule{}
+\let\thefootnote\relax\footnote{AD9914/GSG \hfill Programming Notes  \hfill {\copyright{2014, Mechanart, LLC}}}
+\newpage
+\tableofcontents
+
+\section{Introduction}
+This is a collection of notes describing various settings and values that
+need to be captured in the code that is talking to the DDS. 
+
+\section{Startup}
+\subsection{VCO CAL}
+If the PLL is used to generate the system clock, the VCO must be calibrated at
+start-up. 
+\begin{verbatim}
+spi_set(0x00[24], 1);
+# Check for PLL lock
+while (!locked)
+{
+  spi_get(0x00[24], 0);
+  sleep(5);
+}
+\end{verbatim}
+
+
+\subsection{DAC CAL}The DAC CAL enable bit must be set and then cleared at start-up and after
+the system clock has changed. 
+e.g.:
+\begin{verbatim}
+spi_set(0x03[24], 1);
+sleep(t_cal);
+spi_set(0x03[24], 0);
+\end{verbatim}
+Where $t\_cal$ is determined as follows:
+\[ 
+  t_{cal} = \frac{469,632}{f_S} 
+\]
+
+n.b. - the VCO CAL must be performed prior to DAC CAL. 
+
+\end{document}

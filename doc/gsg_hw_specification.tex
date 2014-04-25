@@ -1,4 +1,5 @@
 \documentclass[letterpaper,12pt]{article}
+\usepackage{amsmath}
 \title{GSG HW Specification \\ \vspace{2 mm} {\large version 0.1}}
 \author{Logan Cummings}
 \begin{document}
@@ -11,19 +12,31 @@
 \section{Introduction}
 
 The GSG uses the blah multipin molex connector for power and digital I/O.
-The GSG primary board is sized to fit in a 1x2 Project Ara module. This 
-implies a board dimension of approximately 18x38mm. 
+The GSG primary board contains the AD9914 DDS chip, an ADCLK905 for input clock 
+buffering, and connectors for power, control, and RF output for use with the 
+Mar-de-lo-Radio.
 
-There exists a complimentary motherboard for the GSG for compatibility with 
-the Mar-de-lo-Radio which adapts the small module to the Eurocard 3U size.
+Connectors are present on the primary board for CLK input, modular power 
+modules, as well as a parallel data connector which exposes the full data path 
+of the DDS. 
 
 \section{Connectors and Pinouts}
-Power and IO Connector
-SMA Output Connector
-Optional External Oscillator Input
+\subsection{Power Connector}
+The component boards designed by PA3AKE use an FCI power part.
+
+\subsection{SMA Output Connector} 
+The main RF output from the DAC is routed to an edge-mount SMA connector. 
+THis is compatible with the jumper wiring of the PA3AKE modules.
+
+\subsection{Optional External Oscillator Input}
+An SMA connector is provided on the component side of the primary board 
+for providing an external clock signal. The clock signal must have slew rate 
+\[
+  SR \geq 2\pi f  Vpk
+\]
 
 Zynq Processor FPGA Option
-Parallel Interface
+Parallel Interface 
 Serial Interface 
 Noise Measurements
 Anti-aliasing Filter
