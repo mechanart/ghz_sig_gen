@@ -1,0 +1,4 @@
+This folder contains schematics and layout files for the primary DDS board.
+
+Additionally, we intend to supply projects for many EDA tools to produce the 
+same gerbers.
