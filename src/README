@@ -1,0 +1,4 @@
+Example code for interfacing with the DDS via SPIDEV in linux goes here.
+
+Additionally, the firmware sources for the optional daughterboard/compute module 
+will reside in this folder...
