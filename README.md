@@ -12,16 +12,17 @@ The GSG is capable of three modes of operation.
 * In USB mode, the microcontroller can be used to interface with the AD9914 via
   the FPGA at the full 32-bit data bus. This mode allows modulation at up to
   145 MSPS.
-* Finally, the onboard microcontroller can drive a display board for standalone
-  operation.  
+* Finally, the optional microcontroller daughterboard can drive a display board 
+  for standalone operation.  
 
 The physical layout of the GSG adheres to the
 [MECB-A](https://github.com/mechanart/mecb) specification which in
-turn is based on a Eurocard standard size of 100mm by 160mm. It is used as the
-LO in the [Mar de Lo Radio](https://github.com/mechanart/mar-de-lo-radio).
+turn is based on a Eurocard 3U standard size of 100mm by 160mm. It is used as the
+Local Oscillator in the [Mar de Lo Radio](https://github.com/mechanart/mar-de-lo-radio).
 
 The goals of the project are as follows:
-* Lowest noise possible
+* Lowest noise possible (amplitude and phase)
+  - Phase noise dependent on REF CLK - see external clock details
 * Flexible control 
 * Modular architecture
   - Voltage regulators are connectorized
