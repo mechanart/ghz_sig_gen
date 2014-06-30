@@ -6,31 +6,36 @@ An open-hardware signal generator capable of 1.4GHz output. Based on the Analog
 Devices AD9914 DDS IC.
 
 The GSG is capable of three modes of operation. 
-* In I^2C mode, the GSG is primarily a breakout for the AD9914. Control is
-  either directly to the AD9914 or via the onboard microcontroller for AD9910
-  emulation.
-* In USB mode, the microcontroller can be used to interface with the AD9914 via
-  the FPGA at the full 32-bit data bus. This mode allows modulation at up to
-  145 MSPS.
+* In I<sup>2</sup>C mode, the GSG is primarily a breakout for the AD9914. 
+  Control is either directly to the AD9914 or via the optional microcontroller 
+  for AD9910 emulation.
+* In USB mode, the optional microcontroller can be used to interface with the 
+  AD9914 via the FPGA at the full 32-bit data bus. This mode allows modulation 
+  at up to 145 MSPS.
 * Finally, the optional microcontroller daughterboard can drive a display board 
   for standalone operation.  
 
 The physical layout of the GSG adheres to the
 [MECB-A](https://github.com/mechanart/mecb) specification which in
-turn is based on a Eurocard 3U standard size of 100mm by 160mm. It is used as the
-Local Oscillator in the [Mar de Lo Radio](https://github.com/mechanart/mar-de-lo-radio).
+turn is based on a Eurocard 3U standard size of 100mm by 160mm. It is used as 
+the Local Oscillator in the 
+[Mar de Lo Radio](https://github.com/mechanart/mar-de-lo-radio).
 
 The goals of the project are as follows:
 * Lowest noise possible (amplitude and phase)
   - Phase noise dependent on REF CLK - see external clock details
+  - decoupled DAC Bypass pin, absent from the AD9910, for superior noise 
+    performance
 * Flexible control 
+  - SPI and Parallel modes via direct connections, I<sup>2</sup>C and USB via 
+    optional daughterboard microcontroller.
 * Modular architecture
   - Voltage regulators are connectorized
   - Serial and Parallel programming interfaces exposed
 * Optional stand-alone capability
-  - display
+  - display (touchscreen expected)
   - control panel
-  - onboard microprocessor
+  - onboard microcontroller
 
 Additionally, there are some contrived aspects to make this an interesting 
 open project:
