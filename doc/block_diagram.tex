@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{pst-sigsys}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{figure}[ht]
+\centering %
+\begin{pspicture}[showgrid=false](0.5,-1.2)(9,1.55)
+%--- Define blocks ---
+\rput(0.5,0){\rnode{s}{$s[n]$}}
+\dotnode[dotstyle=square*,dotscale=0.001](1.7,0){dot}
+\psblock(3,.75){H1}{$H_1(z)$}
+\psblock(3,-.75){H2}{$H_2(z)$}
+\psblock(5.8,.75){B2}{$\hat H_2(z)$}
+\psblock(5.8,-.75){B1}{$\hat H_1(z)$}
+\pscircleop(7.7,0){ominus}
+\rput(9,0){\rnode{e}{$e[n]$}}
+
+%--- Connect blocks ---
+\psset{style=Arrow}
+\ncline[nodesepA=.15]{-}{s}{dot}
+\ncangle[angleA=90,angleB=180]{dot}{H1}
+\ncangle[angleA=-90,angleB=180]{dot}{H2}
+\ncline{H1}{B2} \naput[npos=.5]{$x_1[n]$}
+\ncline{H2}{B1} \naput[npos=.5]{$x_2[n]$}
+\ncangle[angleB=90]{B2}{ominus} \naput[npos=.5]{$z_1[n]$}
+\ncangle[angleB=-90]{B1}{ominus} \naput[npos=.5]{$z_2[n]$}
+\ncline[nodesepB=.15]{ominus}{e}
+\end{pspicture}
+\end{figure}
+
+\end{document}
