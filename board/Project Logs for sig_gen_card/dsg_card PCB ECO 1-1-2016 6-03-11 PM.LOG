@@ -1,0 +1,6 @@
+Added Component: Designator=U?(QFN50P1200X1200X90-89T670X670N)
+Added Net: Name=NetJ?_1
+Added Class: Name=DSG_Card_TopLevel
+Added Class: Name=U_DDS
+Added Room: Name=DSG_Card_TopLevel
+Added Room: Name=U_DDS
