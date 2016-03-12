@@ -1,24 +1,82 @@
 \documentclass[letterpaper,12pt]{article}
 \usepackage{amsmath}
+\usepackage{mathrsfs}
+\DeclareMathOperator{\Lph}{\mathscr{L}}
 \title{GSG HW Specification \\ \vspace{2 mm} {\large version 0.1}}
 \author{Logan Cummings}
 \begin{document}
 \maketitle
 \renewcommand*\footnoterule{}
-\let\thefootnote\relax\footnote{GSG \hfill HW Specification  \hfill {\copyright{2014, Mechanart, LLC}}}
+\let\thefootnote\relax\footnote{GSG \hfill HW Specification  \hfill {\copyright{2014-2016, Mechanart, LLC}}}
 \newpage
 \tableofcontents
 
 \section{Introduction}
 
-The GSG uses the blah multipin molex connector for power and digital I/O.
-The GSG primary board contains the AD9914 DDS chip, an ADCLK905 for input clock 
-buffering, and connectors for power, control, and RF output for use with the 
-Mar-de-lo-Radio.
+The Gigahertz Signal Generator (GSG) was born out of a need for a very clean 
+local oscillator for an high performance HF radio receiver. This project 
+has had a long inception, starting with the discovery of the CDG2000 
+transceiver project Martein Bakker, PA3AKE's refined H-Mode Front End.
 
-Connectors are present on the primary board for CLK input, modular power 
-modules, as well as a parallel data connector which exposes the full data path 
-of the DDS. 
+While Martein had meticulously designed and tested each part of the receiver 
+down to the power and audio outputs, he had stopped short of releasing a 
+board for the local oscillator. This was due to the fact that the best perfomance 
+for full  HF band operation was achieved by a DDS, however the best DDS chips
+available at the time (e.g. the AD9910) had issues with amplitude noise.
+
+This project started in 2013 relied on Martein's conclusion that the missing 
+DACBP pin was to blame for the poor amplitude noise performance, and began to 
+design a local oscillator board around the most recent DDS from Analog Devices, 
+the AD9914.
+
+While the AD9914 has only a 12-bit DAC vs. the AD9910's 14-bits, it provides the 
+infamous DACBP for decoupling the internal DAC reference to reduce noise, and is able 
+to be clocked at nearly 4x the frequency (3.5GHz vs. 1GHz for the AD9910). 
+
+Given those differences, work began to understand the contributing factors to 
+best utilize the AD9914 to produce a low phase noise oscillator for use in an 
+HF receiver. Finally, I found the Easy-Phi project and designed the new board to 
+be Easy-Phi compatible, which also means it contains an Arduino (Due) compatible 
+microprocessor.
+
+\subsection{Requirements}
+The original requirements are presented in the scope of the PA3AKE HF 
+front-end.
+
+With a 9MHz IF, Martein's front-end has such good IM3DR that the local oscillator
+phase noise must be less than -151dBc/Hz at 1KHz, and less than -156dBc/Hz at 
+10KHz so as to not be the limiting factor in the receivers overall dynamic range.
+
+This is the primary requirement for the local oscillator and therefore this signal 
+generator shall meet that requirement:
+\begin{center}
+\begin{tabular}{| l | c | r |}
+\hline
+\multicolumn{3}{|l|}{Performance Requirement at 16MHz Output} \\ \hline
+Phase Noise @ 1kHz Offset & -151 & dBc/Hz \\ \hline
+Phase Noise @ 10kHz Offset & -156 & dBc/Hz \\ \hline
+Phase Noise @ 100kHz Offset & -156 & dBc/Hz \\ \hline
+\end{tabular}
+\end{center}
+
+Therefore, if we consider the DDS as a frequency divider of its reference 
+clock, then we have the following requirement for the phase noise of the 
+reference clock:
+\[
+  \Lph(f)_{ref} = \Lph(f)_{out} + 20LOG(N)
+\]
+
+Where N is the division ratio between the reference clock and output frequency.
+
+Since the higher the reference clock relative to the output frequency the
+higher the spur-free dynamic range, we then require a 3.5GHz oscillator 
+with 
+\begin{align*}  
+  \Lph(f)_{ref} &\leq -151 + 20LOG(\frac{3500}{16}) \\
+  \Lph(f)_{ref} &\leq -108 dBc/Hz
+\end{align*}
+at 1kHz offset.
+
 
 \section{Connectors and Pinouts}
 \subsection{Power Connector}

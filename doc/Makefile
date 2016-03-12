@@ -1,6 +1,4 @@
-all:
-	  block_diagram
-		gsg_hw_specification
+all: 	block_diagram 	gsg_hw_specification
 
 block_diagram:
 		latex block_diagram.tex; dvips block_diagram.dvi; ps2pdf block_diagram.ps 
