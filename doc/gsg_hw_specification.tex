@@ -17,25 +17,27 @@ The Gigahertz Signal Generator (GSG) was born out of a need for a very clean
 local oscillator for an high performance HF radio receiver. This project 
 has had a long inception, starting with the discovery of the CDG2000 
 transceiver project Martein Bakker, PA3AKE's refined H-Mode Front End.
-
+\par 
 While Martein had meticulously designed and tested each part of the receiver 
 down to the power and audio outputs, he had stopped short of releasing a 
 board for the local oscillator. This was due to the fact that the best perfomance 
 for full  HF band operation was achieved by a DDS, however the best DDS chips
 available at the time (e.g. the AD9910) had issues with amplitude noise.
-
-This project started in 2013 relied on Martein's conclusion that the missing 
+\par
+This project was started in 2013 based on Martein's conclusion that the missing 
 DACBP pin was to blame for the poor amplitude noise performance, and began to 
 design a local oscillator board around the most recent DDS from Analog Devices, 
 the AD9914.
-
-While the AD9914 has only a 12-bit DAC vs. the AD9910's 14-bits, it provides the 
-infamous DACBP for decoupling the internal DAC reference to reduce noise, and is able 
-to be clocked at nearly 4x the frequency (3.5GHz vs. 1GHz for the AD9910). 
-
-Given those differences, work began to understand the contributing factors to 
-best utilize the AD9914 to produce a low phase noise oscillator for use in an 
-HF receiver. Finally, I found the Easy-Phi project and designed the new board to 
+\par
+While the AD9914 has only a 12-bit DAC vs. the AD9910's 14-bits, it does bring
+out the DACBP pin for decoupling the internal DAC reference. Additionally, it 
+can be clocked at nearly 4x the frequency (3.5GHz vs. 1GHz for the AD9910). 
+\par
+Given those differences, work began to best utilize the AD9914 to produce a 
+low phase noise frequency agile frequency synthesizer for general laboratory 
+usage, while still meeting the requirements for the high performance LO.
+\par
+Finally, I found the Easy-Phi project and designed the new board to 
 be Easy-Phi compatible, which also means it contains an Arduino (Due) compatible 
 microprocessor.
 
@@ -73,9 +75,32 @@ higher the spur-free dynamic range, we then require a 3.5GHz oscillator
 with 
 \begin{align*}  
   \Lph(f)_{ref} &\leq -151 + 20LOG(\frac{3500}{16}) \\
-  \Lph(f)_{ref} &\leq -108 dBc/Hz
+  \Lph(f)_{ref} &\leq -104.2 dBc/Hz
 \end{align*}
 at 1kHz offset.
+\par 
+Martein's prototype AD9910 board used a very low noise OCXO at 100MHz 
+multiplied by an x5 multiplier followed by a doubler circuit to achieve 
+1GHz with good phase noise. After researching x5 and x7 multiplier circuits
+to do the same to 3.5GHz, a 3.5GHz CRO was found that nearly met all the 
+requirements with much less complexity.
+\begin{center}
+\begin{tabular}{| l | c | c | c | r |}
+\hline
+\multicolumn{5}{|c|}{Performance Requirement of 3.5GHz RefClk} \\ \hline 
+Clock & Target & ABLNO x35 & CVCO55 3500 & \\ \hline
+PN @ 1kHz Offset & -104.2 & -110.1 & -89.1 & dBc/Hz \\ \hline
+PN @ 10kHz Offset & -109.2 & -129.1 & -115 & dBc/Hz \\ \hline
+PN @ 100kHz Offset & -109.2 & -130.1 & -135 & dBc/Hz \\ \hline
+\end{tabular}
+\end{center}
+However, the above assumes a noiseless multiplier, which is hard to do.
+\par
+The decision was made to start with the CVCO55 CRO oscillator and prove 
+the rest of the DDS signal generator. Once it can be shown the limiting 
+factor for close-in phase noise is the reference clock, a multiplied 
+crystal oscillator drop-in module for the same 0.55x0.55" footprint can 
+be developed.
 
 
 \section{Connectors and Pinouts}
